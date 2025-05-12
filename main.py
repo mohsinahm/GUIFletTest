@@ -1,5 +1,5 @@
 import flet as ft
-import flet.fastapi as flet_fastapi
+import flet_fastapi
 
 
 async def root_main(page: ft.Page):
