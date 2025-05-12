@@ -1,17 +1,20 @@
 import flet as ft
-import flet_fastapi
+import time
+import asyncio
 
+def main(page: ft.Page):
 
-async def root_main(page: ft.Page):
-    await page.add_async(ft.Text("This is root app!"))
+    def handler(e):
+      time.sleep(3)
+      page.add(ft.Text("Handler clicked"))
 
+    async def handler_async(e):
+      await asyncio.sleep(3)
+      page.add(ft.Text("Async handler clicked"))
 
-async def sub_main(page: ft.Page):
-    await page.add_async(ft.Text("This is sub app!"))
+    page.add(
+        ft.ElevatedButton("Call handler", on_click=handler),
+        ft.ElevatedButton("Call async handler", on_click=handler_async)
+    )
 
-
-app = flet_fastapi.FastAPI()
-
-
-app.mount("/sub-app", flet_fastapi.app(sub_main))
-app.mount("/", flet_fastapi.app(root_main))
+ft.app(main)
